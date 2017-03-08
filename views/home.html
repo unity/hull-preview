@@ -2,8 +2,9 @@
 <head>
   <link rel="stylesheet" href="//dd04rofzygnm0.cloudfront.net/releases/master/865f04865d2448286626bac92c518a8f8ea8bafe/stylesheets/neue.css" />
 </head>
-<body>
+<body class="pr-2 pl-2">
   <div class="row">
+    <h1 class="mb-0 mt-0 text-center"><i class="icon icon-hull" style="font-size:64px;"></i></h1>
     <div class="panel panel-default">
       <div class="panel-heading">
         <span class="panel-title">Properties</span>
@@ -24,11 +25,15 @@
               </div>
               <div class="row">
                 <div class="col-sm-4 col title text-muted">
-                  <i class="icon icon-email"></i>
+                  <i class="icon icon-user_group"></i>
                   <span> Segments</span>
                 </div>
                 <div class="col-sm-8 col value">
-                  <span class="table-property-value"><%= segments.map(s => s.name).join(",") %></span>
+                  <span class="table-property-value">
+                    <span class="badge">
+                    <%- segments.map(s => s.name).join('</span><span class="badge">') %>
+                    </span>
+                  </span>
                   <span> </span>
                 </div>
               </div>

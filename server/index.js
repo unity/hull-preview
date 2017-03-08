@@ -11,15 +11,20 @@ const app = express();
 connector.setupApp(app);
 
 app.get("/preview", cors(), (req, res, next) => {
-  // const ident = Buffer.from(req.query.ident, "base64").toString();
-  const email = req.query.email;
-  console.log("loading user", { email });
-  return req.hull.client.as({ email }).get("/me")
+  const ident = JSON.parse(Buffer.from(req.query.ident, "base64").toString());
+  req.hull.client.logger.info("loading user", ident);
+  const scopedHull = req.hull.client.as(ident);
+
+  return scopedHull.get("/me")
   .then(user => {
-    req.hull.client.as({ email }).get(`/${user.id}/segments`)
+    return scopedHull.get(`/${user.id}/segments`)
       .then(segments => {
         return res.render("home.html", { user, segments });
       });
+  })
+  .catch(err => {
+    console.error(err);
+    res.end("err");
   });
 });
 
