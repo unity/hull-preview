@@ -1,0 +1,14 @@
+{
+  "name": "Preview",
+  "description": "A connector allowing to load the user information preview at a 3rd party websites",
+  "tags": ["incoming", "oneColumn"],
+  "picture": "picture.png",
+  "admin" : "admin",
+  "version": "0.1.0",
+  "settings": [],
+  "private_settings":[],
+  "deployment_settings": [],
+  "resources": [],
+  "readme": "readme.md",
+  "ui": false
+}

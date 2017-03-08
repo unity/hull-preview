@@ -1,0 +1,44 @@
+<html>
+<head>
+  <link rel="stylesheet" href="//dd04rofzygnm0.cloudfront.net/releases/master/865f04865d2448286626bac92c518a8f8ea8bafe/stylesheets/neue.css" />
+</head>
+<body>
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <span class="panel-title">Properties</span>
+      </div>
+      <div class="property-table">
+        <div class="col-sm-12">
+          <div class="row grid">
+            <div class="col-md-12 col-lg-12 cell flex">
+              <div class="row">
+                <div class="col-sm-4 col title text-muted">
+                  <i class="icon icon-email"></i>
+                  <span> Email</span>
+                </div>
+                <div class="col-sm-8 col value">
+                  <span class="table-property-value"><%= user.contact_email %></span>
+                  <span> </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4 col title text-muted">
+                  <i class="icon icon-email"></i>
+                  <span> Segments</span>
+                </div>
+                <div class="col-sm-8 col value">
+                  <span class="table-property-value"><%= segments.map(s => s.name).join(",") %></span>
+                  <span> </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+

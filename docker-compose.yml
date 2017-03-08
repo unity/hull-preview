@@ -1,0 +1,18 @@
+version: '2'
+services:
+    npm:
+        image: node:6
+        env_file: .env
+        entrypoint: npm
+        command: run start:dev
+        ports:
+            - "$PORT:$PORT"
+        working_dir: /app
+        volumes:
+            - .:/app
+        links:
+            - redis
+    redis:
+        image: redis:3
+        ports:
+          - "6379:6379"
