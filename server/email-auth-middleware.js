@@ -10,7 +10,7 @@ export default function emailAuthFactory(hostSecret) {
       if (!_.includes(authorizedEmails, decoded)) {
         throw new Error("Email not authorized");
       }
-      next();
+      return next();
     } catch (e) {
       return res.end("Token not provided or wrong.");
     }

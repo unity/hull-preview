@@ -1,7 +1,6 @@
 
 export default function keyMiddlewareFactory() {
   return function keyMiddleware(req, res, next) {
-
     if (!req.query.key) {
       return next();
     }
@@ -12,7 +11,7 @@ export default function keyMiddlewareFactory() {
       tokens = JSON.parse(Buffer.from(req.query.key, "base64").toString());
       req.hull.token = tokens.hull;
       req.query.emailToken = tokens.email;
-      next();
+      return next();
     } catch (e) {
       return res.end("Key not provided or wrong.");
     }
