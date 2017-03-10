@@ -1,6 +1,6 @@
 {
   "name": "Preview",
-  "description": "A connector allowing to load the user information preview at a 3rd party websites",
+  "description": "A connector adding user information preview at any website",
   "tags": ["incoming", "oneColumn"],
   "picture": "picture.png",
   "admin" : "admin",
