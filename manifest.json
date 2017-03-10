@@ -6,7 +6,15 @@
   "admin" : "admin",
   "version": "0.1.0",
   "settings": [],
-  "private_settings":[],
+  "private_settings":[{
+    "name": "authorized_emails",
+    "title": "Authorized emails",
+    "type": "array",
+    "format": "table",
+    "items": {
+      "type": "string"
+    }
+  }],
   "deployment_settings": [],
   "resources": [],
   "readme": "readme.md",

@@ -42,6 +42,7 @@
     "cors": "^2.8.1",
     "express": "^4.13.4",
     "hull": "^0.11.0-beta.1",
+    "jwt-simple": "^0.5.1",
     "lodash": "^4.12.0",
     "rimraf": "^2.5.4",
     "winston-logstash": "^0.3.0"

@@ -5,9 +5,14 @@
 <body>
   <div class="panel panel-default">
     <div class="panel-body">
-      <p>Save the data into your Hull Preview Chrome Extension:</p>
-      <p>Hostname: <pre>https://<%=ctx.hostname%></pre></p>
-      <p>Token: <pre><%=ctx.token%></pre></p>
+      <p>Save the data into your Hull Preview Chrome Extension and one of the email tokens:</p>
+      <p>Hostname: <pre>https://<%= hostname %></pre></p>
+
+      <h3>Email Tokens</h3>
+      <% _.map(authorizedEmails, (token, email) => { %>
+        <%= email %> <pre><%= token %></pre>
+
+      <% }) %>
     </div>
   </div>
 </body>

@@ -2,16 +2,25 @@ import Hull from "hull";
 import express from "express";
 import cors from "cors";
 import _ from "lodash";
+import jwt from "jwt-simple";
+import { Cache } from "hull/lib/infra";
+
+import emailAuthMiddleware from "./email-auth-middleware"
+import keyMiddleware from "./key-middleware";
+
+const cache = new Cache({ store: 'memory', max: 1, ttl: 1 });
 
 const connector = new Hull.Connector({
+  cache,
   port: process.env.PORT || 8082,
   hostSecret: process.env.SECRET || "1234"
 });
 const app = express();
 
+app.use(keyMiddleware());
 connector.setupApp(app);
 
-app.get("/preview", cors(), (req, res, next) => {
+app.get("/preview", cors(), emailAuthMiddleware(connector.hostSecret), (req, res, next) => {
   const { client } = req.hull;
   let ident;
   try {
@@ -49,7 +58,18 @@ app.get("/preview", cors(), (req, res, next) => {
 });
 
 app.get("/admin", (req, res) => {
-  return res.render("admin.html", { ctx: req.hull });
+  const { hostname, token, ship } = req.hull;
+
+  const authorizedEmails = ship.private_settings.authorized_emails.reduce((emails, email) => {
+    const data = JSON.stringify({
+      hull: req.hull.token,
+      email: jwt.encode(email, connector.hostSecret)
+    });
+    emails[email] = new Buffer(data).toString('base64')
+    return emails;
+  }, {});
+
+  return res.render("admin.html", { hostname, authorizedEmails, _ });
 });
 
 connector.startApp(app);
