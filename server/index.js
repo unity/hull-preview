@@ -13,10 +13,17 @@ connector.setupApp(app);
 
 app.get("/preview", cors(), (req, res, next) => {
   const { client } = req.hull;
-  const ident = JSON.parse(Buffer.from(req.query.ident, "base64").toString());
-  client.logger.info("loading user", ident);
-  const scopedHull = client.as(ident);
+  let ident;
+  try {
+    ident = JSON.parse(Buffer.from(req.query.ident, "base64").toString());
+  } catch (e) {}
 
+  if (!ident) {
+    return res.render("error.html");
+  }
+
+  client.logger.info("loading user", ident);
+  const scopedHull = client.as(ident, { create: false });
   return scopedHull.get("/me")
   .then(user => {
     return client.get(`/${user.id}/user_report`)
@@ -37,7 +44,7 @@ app.get("/preview", cors(), (req, res, next) => {
   })
   .catch(err => {
     console.error(err);
-    res.end("err");
+    return res.render("error.html");
   });
 });
 
