@@ -1,48 +1,62 @@
 <html>
 <head>
   <link rel="stylesheet" href="//dd04rofzygnm0.cloudfront.net/releases/master/865f04865d2448286626bac92c518a8f8ea8bafe/stylesheets/neue.css" />
+  <style type="text/css">
+    .property-table .cell {
+      box-shadow: inset 0 1px 0 0 #e7ebef;
+      padding-top: 6px;
+      padding-bottom: 6px;
+      font-size: 9pt;
+    }
+  </style>
 </head>
 <body class="pr-2 pl-2">
-  <div class="row">
+  <div class="row panel-group" id="#accordion">
     <h1 class="mb-0 mt-0 text-center"><i class="icon icon-hull" style="font-size:64px;"></i></h1>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <span class="panel-title">Properties</span>
+    <% _.map(user, (group, key) => { %>
+    <div class="panel panel-default" style="flex-direction:column;display:flex;">
+      <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#<%= key %>">
+        <span class="panel-title"><%= _.upperFirst(key) %></span>
       </div>
-      <div class="property-table">
-        <div class="col-sm-12">
-          <div class="row grid">
-            <div class="col-md-12 col-lg-12 cell flex">
-              <div class="row">
-                <div class="col-sm-4 col title text-muted">
-                  <i class="icon icon-email"></i>
-                  <span> Email</span>
-                </div>
-                <div class="col-sm-8 col value">
-                  <span class="table-property-value"><%= user.contact_email %></span>
-                  <span> </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-4 col title text-muted">
-                  <i class="icon icon-user_group"></i>
-                  <span> Segments</span>
-                </div>
-                <div class="col-sm-8 col value">
-                  <span class="table-property-value">
+      <div id="<%= key %>" class="panel-collapse collapse<% if (key === "properties") { %> in<% } %>" role="tabpanel">
+        <div class="property-table">
+          <div class="col-sm-12">
+            <div class="row grid">
+
+              <% _.map(group, (field, name) => { %>
+              <div class="col-md-12 col-lg-12 cell flex">
+                <div class="row">
+                  <div class="col-sm-4 col title text-muted">
+                    <span> <%= _.upperFirst(name) %></span>
+                  </div>
+                  <div class="col-sm-8 col value">
+                    <% if (_.isArray(field)) { %>
+                    <% if (field.length > 0) { %>
                     <span class="badge">
-                    <%- segments.map(s => s.name).join('</span><span class="badge">') %>
+                      <%- field.map(s => s.name || s).join('</span>\n<span class="badge">') %>
                     </span>
-                  </span>
-                  <span> </span>
+                    <% } %>
+                    <% } else { %>
+                    <span class="table-property-value"><%= field %></span>
+                    <% } %>
+                    <span> </span>
+                  </div>
                 </div>
               </div>
+              <% }) %>
+
             </div>
           </div>
         </div>
       </div>
     </div>
+  <% }) %>
   </div>
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
 
