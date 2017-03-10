@@ -24,6 +24,8 @@
             <div class="row grid">
 
               <% _.map(group, (field, name) => { %>
+              <% if (field === null) return null %>
+
               <div class="col-md-12 col-lg-12 cell flex">
                 <div class="row">
                   <div class="col-sm-4 col title text-muted">
