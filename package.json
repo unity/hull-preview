@@ -10,6 +10,7 @@
     "start:dev": "NODE_ENV=development babel-watch -L ./server",
     "test": "NODE_ENV=test mocha --require babel-register -R spec ./tests",
     "test:lint": "eslint ./server ./tests",
+    "test:units": "NODE_ENV=test mocha --require babel-register -R spec ./tests/* ./tests/**/*",
     "ngrok": "ngrok http 8082 --region eu --subdomain stripe",
     "update": "./node_modules/.bin/updtr; ./node_modules/.bin/depcheck",
     "clean": "./node_modules/.bin/rimraf ./build",
@@ -44,6 +45,7 @@
     "hull": "^0.11.0-beta.1",
     "jwt-simple": "^0.5.1",
     "lodash": "^4.12.0",
+    "node-jose": "^0.9.3",
     "rimraf": "^2.5.4",
     "winston-logstash": "^0.3.0"
   },

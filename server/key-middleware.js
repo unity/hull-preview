@@ -1,18 +1,26 @@
+import { decrypt } from "./email-token";
 
-export default function keyMiddlewareFactory() {
+
+export default function keyMiddlewareFactory(hostSecret) {
   return function keyMiddleware(req, res, next) {
-    if (!req.query.key) {
+    if (!req.query.emailToken) {
       return next();
     }
 
     let tokens;
     req.hull = req.hull || {};
     try {
-      tokens = JSON.parse(Buffer.from(req.query.key, "base64").toString());
-      req.hull.token = tokens.hull;
-      req.query.emailToken = tokens.email;
-      return next();
+
+      return decrypt(hostSecret, req.query.emailToken)
+        .then(tokens => {
+          req.hull.token = tokens.hullToken;
+          req.query.email = tokens.email;
+          console.log(tokens);
+          next();
+        })
+        .catch(err => res.end(err));
     } catch (e) {
+      console.error(e.stack || e);
       return res.end("Key not provided or wrong.");
     }
   };

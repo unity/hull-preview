@@ -4,10 +4,8 @@ import _ from "lodash";
 export default function emailAuthFactory(hostSecret) {
   return function emailAuthMiddleware(req, res, next) {
     try {
-      const decoded = jwt.decode(req.query.emailToken, hostSecret);
       const { authorized_emails: authorizedEmails } = req.hull.ship.private_settings;
-      console.log(decoded, authorizedEmails);
-      if (!_.includes(authorizedEmails, decoded)) {
+      if (!_.includes(authorizedEmails, req.query.email)) {
         throw new Error("Email not authorized");
       }
       return next();
