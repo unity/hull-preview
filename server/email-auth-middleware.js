@@ -1,7 +1,6 @@
-import jwt from "jwt-simple";
 import _ from "lodash";
 
-export default function emailAuthFactory(hostSecret) {
+export default function emailAuthFactory() {
   return function emailAuthMiddleware(req, res, next) {
     try {
       const { authorized_emails: authorizedEmails } = req.hull.ship.private_settings;

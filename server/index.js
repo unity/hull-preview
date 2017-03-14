@@ -2,7 +2,6 @@ import Hull from "hull";
 import express from "express";
 import cors from "cors";
 import _ from "lodash";
-import jwt from "jwt-simple";
 import { Cache } from "hull/lib/infra";
 import Promise from "bluebird";
 
@@ -78,11 +77,11 @@ app.get("/admin", (req, res) => {
       hullToken: req.hull.token,
       email
     })
-    .then(generatedToken => {
+    .then((generatedToken) => {
       return { email, emailToken: generatedToken };
     });
   }))
-  .then(authorizedEmails => {
+  .then((authorizedEmails) => {
     return res.render("admin.html", { hostname, authorizedEmails, _ });
   });
 });

@@ -10,8 +10,8 @@ function getKey(hostSecret) {
 
 export function encrypt(hostSecret, { email, hullToken }) {
   return getKey(hostSecret)
-    .then((key) => jose.JWE.createEncrypt({ format: "compact" }, key))
-    .then(j => {
+    .then(key => jose.JWE.createEncrypt({ format: "compact" }, key))
+    .then((j) => {
       const emailToken = [email, hullToken].join("::");
       return j
         .update(emailToken)
@@ -27,9 +27,7 @@ export function decrypt(hostSecret, emailToken) {
         .decrypt(emailToken);
     })
     .then((res) => {
-      var [ email, hullToken ] = res.payload.toString().split("::");
+      const [email, hullToken] = res.payload.toString().split("::");
       return { email, hullToken };
     });
 }
-
-

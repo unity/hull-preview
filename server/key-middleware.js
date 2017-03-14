@@ -6,16 +6,12 @@ export default function keyMiddlewareFactory(hostSecret) {
     if (!req.query.emailToken) {
       return next();
     }
-
-    let tokens;
     req.hull = req.hull || {};
     try {
-
       return decrypt(hostSecret, req.query.emailToken.trim())
-        .then(tokens => {
+        .then((tokens) => {
           req.hull.token = tokens.hullToken.trim();
           req.query.email = tokens.email.trim();
-          console.log(tokens);
           next();
         })
         .catch(err => next(err));
