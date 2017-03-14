@@ -11,17 +11,17 @@ export default function keyMiddlewareFactory(hostSecret) {
     req.hull = req.hull || {};
     try {
 
-      return decrypt(hostSecret, req.query.emailToken)
+      return decrypt(hostSecret, req.query.emailToken.trim())
         .then(tokens => {
-          req.hull.token = tokens.hullToken;
-          req.query.email = tokens.email;
+          req.hull.token = tokens.hullToken.trim();
+          req.query.email = tokens.email.trim();
           console.log(tokens);
           next();
         })
-        .catch(err => res.end(err));
+        .catch(err => next(err));
     } catch (e) {
       console.error(e.stack || e);
-      return res.end("Key not provided or wrong.");
+      return next("Key not provided or wrong.");
     }
   };
 }
