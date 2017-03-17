@@ -31,3 +31,25 @@ export function decrypt(hostSecret, emailToken) {
       return { email, hullToken };
     });
 }
+
+export function sign(hostSecret, emailToken) {
+  return getKey(hostSecret)
+    .then(key => jose.JWS.createSign({ format: "compact" }, key))
+    .then((j) => {
+      return j.update(emailToken)
+        .final();
+    });
+}
+
+
+export function exportPublicKey(hostSecret) {
+
+  // return jose.JWK.createKeyStore().generate("oct", 256, props).
+  //       then(function(result) {
+  //         // {result} is a jose.JWK.Key
+  //         key = result;
+  //       });
+
+  return getKey(hostSecret)
+    .then(key => key.toJSON());
+}

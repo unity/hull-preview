@@ -3,9 +3,6 @@ import { decrypt } from "./email-token";
 
 export default function keyMiddlewareFactory(hostSecret) {
   return function keyMiddleware(req, res, next) {
-    if (!req.query.emailToken) {
-      return next();
-    }
     req.hull = req.hull || {};
     try {
       return decrypt(hostSecret, req.query.emailToken.trim())

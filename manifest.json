@@ -12,7 +12,8 @@
     "type": "array",
     "format": "table",
     "items": {
-      "type": "string"
+      "type": "string",
+      "title" : "Email Address"
     }
   }],
   "deployment_settings": [],

@@ -8,7 +8,7 @@
       <p>Save the data into your Hull Preview Chrome Extension and one of the email tokens:</p>
       <h3>Email Tokens</h3>
       <% _.map(authorizedEmails, (authorized) => { %>
-        <%= authorized.email %> <pre>https://<%= hostname %>/preview?emailToken=<%= authorized.emailToken %></pre>
+        <%= authorized.email %> <pre>https://<%= hostname %>/install?emailToken=<%= authorized.emailToken %></pre>
 
       <% }) %>
     </div>

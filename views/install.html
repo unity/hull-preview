@@ -1,0 +1,27 @@
+<html>
+<head>
+  <link rel="stylesheet" href="//dd04rofzygnm0.cloudfront.net/releases/master/865f04865d2448286626bac92c518a8f8ea8bafe/stylesheets/neue.css" />
+  <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/hjfgbacjgealjkkmahcldimllolibgli">
+
+  <meta name="connection-url" content="https://<%= hostname %>/preview?emailToken=<%= emailToken %>" />
+</head>
+<body>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h2>Hello <%= email %></h2>
+      <p class="mt-1">You were invited to install Hull Preview Chrome Extension. To install it click the button below:</p>
+      <div class="text-center mt-2">
+        <button class="btn btn-default" onclick="chrome.webstore.install('https://chrome.google.com/webstore/detail/hjfgbacjgealjkkmahcldimllolibgli', function() { window.location.reload() })">Install</button>
+      </div>
+      <p class="mt-3">
+        After installation you will notified about automatic configuration of the extension.
+        If it fails for some reason, you can copy&paste following url to the options of the extension (access it via Chrome Extension window).
+      </p>
+      <pre>https://<%= hostname %>/preview?emailToken=<%= emailToken %></pre>
+    </div>
+  </div>
+</body>
+</html>
+
+
+

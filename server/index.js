@@ -17,9 +17,11 @@ const connector = new Hull.Connector({
   port: process.env.PORT || 8082,
   hostSecret: process.env.SECRET || "3qyTVhIWt5juqZUCpfRqpvauwB956MEJL2Rt-8qXKSo"
 });
+
 const app = express();
 
-app.use(keyMiddleware(connector.hostSecret));
+app.use("/preview", keyMiddleware(connector.hostSecret));
+app.use("/install", keyMiddleware(connector.hostSecret));
 connector.setupApp(app);
 
 app.get("/preview", cors(), emailAuthMiddleware(connector.hostSecret), (req, res) => {
@@ -84,6 +86,10 @@ app.get("/admin", (req, res) => {
   .then((authorizedEmails) => {
     return res.render("admin.html", { hostname, authorizedEmails, _ });
   });
+});
+
+app.get("/install", (req, res) => {
+  res.render("install.html", { email: req.query.email, hostname: req.hostname, emailToken: req.query.emailToken });
 });
 
 connector.startApp(app);
