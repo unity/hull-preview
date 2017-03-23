@@ -5,11 +5,12 @@
 <body>
   <div class="panel panel-default">
     <div class="panel-body">
-      <p>Save the data into your Hull Preview Chrome Extension and one of the email tokens:</p>
+      <p>Create new token in the settings screen for each new user of the extension.</p>
+      <p>Then send them the link generated here:</p>
+      <hr />
       <h3>Email Tokens</h3>
       <% _.map(authorizedEmails, (authorized) => { %>
         <%= authorized.email %> <pre>https://<%= hostname %>/install?emailToken=<%= authorized.emailToken %></pre>
-
       <% }) %>
     </div>
   </div>
