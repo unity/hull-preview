@@ -4,6 +4,7 @@
   <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/hjfgbacjgealjkkmahcldimllolibgli">
 
   <meta name="connection-url" content="https://<%= hostname %>/preview?emailToken=<%= emailToken %>" />
+  <title>Install Hull Chrome Extension</title>
 </head>
 <body>
   <div class="row">
@@ -14,8 +15,8 @@
         <button class="btn btn-default" onclick="chrome.webstore.install('https://chrome.google.com/webstore/detail/hjfgbacjgealjkkmahcldimllolibgli', function() { window.location.reload() })">Install</button>
       </div>
       <p class="mt-3">
-        After installation you will notified about automatic configuration of the extension.
-        If it fails for some reason, you can copy&paste following url to the options of the extension (access it via Chrome Extension window).
+        After installation you will be notified about automatic configuration of the extension.
+        If it fails for some reason, you can copy&paste following url to <a href="chrome-extension://hjfgbacjgealjkkmahcldimllolibgli/options.html">the options of the extension</a>. You can also access it via Chrome <a href="chrome://extensions/">Extension window</a>.
       </p>
       <pre>https://<%= hostname %>/preview?emailToken=<%= emailToken %></pre>
     </div>
