@@ -36,7 +36,7 @@
     "LOGSTASH_HOST" : {
       "description" : "Logstash Host",
       "required": false
-    },
+    }
   },
   "scripts": {}
 }

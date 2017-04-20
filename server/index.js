@@ -66,21 +66,25 @@ app.get("/preview", cors(), emailAuthMiddleware(connector.hostSecret), (req, res
   })
   .catch((err) => {
     console.error(err);
-    return res.render("error.html");
+    return res.render("error.html", { email: ident.email });
   });
 });
 
 app.get("/admin", (req, res) => {
   const { hostname, ship } = req.hull;
-  const emails = ship.private_settings.authorized_emails;
+  const emails = ship.private_settings.authorized_emails || [];
 
-  Promise.all(emails.map((email) => {
+  Promise.all(emails.map((email = "") => {
     return emailToken.encrypt(connector.hostSecret, {
       hullToken: req.hull.token,
       email
     })
     .then((generatedToken) => {
-      return { email, emailToken: generatedToken };
+      return {
+        email,
+        emailToken: generatedToken,
+        link: `https://${hostname}/install?emailToken=${generatedToken}`
+      };
     });
   }))
   .then((authorizedEmails) => {

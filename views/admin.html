@@ -13,29 +13,37 @@
   </style>
 </head>
 <body>
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <p>Create new token in the settings screen for each new user of the extension.</p>
-      <p>Then send them the link generated here:</p>
-      <hr />
-      <% _.map(authorizedEmails, (authorized, index) => { %>
-      <div class="row email_token">
-        <div class="col-md-2 email"><%= authorized.email %></div>
-        <div class="col-md-8"><pre id="token_<%= index %>">https://<%= hostname %>/install?emailToken=<%= authorized.emailToken %></pre></div>
-        <div class="col-md-2">
-          <button class="btn btn-block btn-primary" data-clipboard-target="#token_<%= index %>">
-            Copy to clipboard
-          </button>
+  <div class="row">
+    <div class="mt-1 col-lg-6 col-lg-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">
+            Hull User profile Chrome extension
+          </h3>
+        </div>
+        <div class="panel-body">
+          <ol>
+            <li>Create a new token in the settings screen for each new user of the extension.</li>
+            <li>A new, unique installation link will appear below. Send it to the user.</li>
+          </ol>
+          <hr />
+          <% _.map(authorizedEmails, (authorized, index) => { %>
+            <label for='token_<%= index %>'><%= authorized.email %></label>
+            <div class="input-group">
+              <input type='text' class='form-control' id="token_<%= index %>" value='<%= authorized.link %>'>
+              <div class="input-group-btn">
+                <button class="btn btn-primary" data-clipboard-target="#token_<%= index %>">Copy</button>
+                <a href='mailto:<%= authorized.email %>?subject=Install%20the%20Hull%20Chrome%20extension&body=<%=encodeURI("See complete information about any email in Hull. Install the chrome extension by clicking this link:\n\n"+authorized.link+ "\n\nThen highlight any email in Chrome to see what Hull knows about it") %>' class="btn btn-default" alt='Send via email'><icon class="icon-send"></icon></a>
+              </div>
+            </div>
+          <hr />
+          <% }) %>
         </div>
       </div>
-      <hr />
-      <% }) %>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.0/clipboard.min.js"></script>
-  <script>
-    new Clipboard('[data-clipboard-target]');
-  </script>
+  <script>new Clipboard('[data-clipboard-target]');</script>
 </body>
 </html>
 

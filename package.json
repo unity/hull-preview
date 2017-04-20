@@ -11,7 +11,7 @@
     "test": "npm run test:lint && npm run test:units",
     "test:lint": "eslint ./server",
     "test:units": "NODE_ENV=test mocha --require babel-register -R spec ./tests/* ./tests/**/*",
-    "ngrok": "ngrok http 8082 --region eu --subdomain stripe",
+    "ngrok": "ngrok http 8082 --region eu --subdomain preview",
     "update": "./node_modules/.bin/updtr; ./node_modules/.bin/depcheck",
     "clean": "./node_modules/.bin/rimraf ./build",
     "postinstall": "npm run build"

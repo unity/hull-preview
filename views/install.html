@@ -7,20 +7,46 @@
   <title>Install Hull Chrome Extension</title>
 </head>
 <body>
+
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <h2>Hello <%= email %></h2>
-      <p class="mt-1">You were invited to install Hull Preview Chrome Extension. To install it click the button below:</p>
-      <div class="text-center mt-2">
-        <button class="btn btn-default" onclick="chrome.webstore.install('https://chrome.google.com/webstore/detail/hjfgbacjgealjkkmahcldimllolibgli', function() { window.location.reload() })">Install</button>
+    <div class="mt-1 col-lg-6 col-lg-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">
+            Hello <%= email %>
+          </h3>
+        </div>
+        <div class="panel-body text-center pb-2">
+          <p class="mt-1">You were invited to install Hull Preview Chrome Extension. <br> <a href="https://chrome.google.com/webstore/detail/hjfgbacjgealjkkmahcldimllolibgli" target="_blank">View it on the Chrome store</a></p>
+
+          <div class="text-center mt-1">
+            <button class="btn btn-rounded btn-success btn-xl" onclick="chrome.webstore.install('https://chrome.google.com/webstore/detail/hjfgbacjgealjkkmahcldimllolibgli', function() { window.location.reload() })">Install Chrome extension</button>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <p class="mt-2">After this extension is installed, whenever you highlight an email in chrome, a Hull sidebar will show, displaying all available information about it. </p>
+              <hr>
+              <p>
+                After installation you will be notified about automatic configuration of the extension. If it fails for some reason, you can set it up manually by pasting the following url to <a href="chrome-extension://hjfgbacjgealjkkmahcldimllolibgli/options.html">the options of the extension.</a></p>
+
+              <div class="input-group">
+                <input type='text' class='form-control' id="token" value='https://<%= hostname %>/preview?emailToken=<%= emailToken %>'>
+                <div class="input-group-btn">
+                  <button class="btn btn-primary" data-clipboard-target="#token">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
       </div>
-      <p class="mt-3">
-        After installation you will be notified about automatic configuration of the extension.
-        If it fails for some reason, you can copy&paste following url to <a href="chrome-extension://hjfgbacjgealjkkmahcldimllolibgli/options.html">the options of the extension</a>. You can also access it via Chrome <a href="chrome://extensions/">Extension window</a>.
-      </p>
-      <pre>https://<%= hostname %>/preview?emailToken=<%= emailToken %></pre>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.0/clipboard.min.js"></script>
+  <script>new Clipboard('[data-clipboard-target]');</script>
 </body>
 </html>
 
