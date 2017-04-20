@@ -1,0 +1,78 @@
+{
+  "manifest_version": 2,
+
+  "name": "Hull Preview Extension",
+  "description": "Use that extension to preview Hull User details on a set of supported services",
+  "version": "1.2",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "browser_action": {
+    "default_icon": "icon.ico",
+    "_default_popup": "popup.html"
+  },
+  "options_ui": {
+    "page": "options.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "scripts/get-connector-url.js",
+        "scripts/get-token.js",
+        "scripts/encode-ident.js",
+        "scripts/load-iframe.js",
+        "scripts/inject-sidebar.js",
+        "scripts/content.js"
+      ],
+      "run_at": "document_end",
+      "css": [
+        "sidebar.css"
+      ]
+    },
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["scripts/detect/gmail.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["https://*.salesforce.com/*"],
+      "js": ["scripts/detect/salesforce.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["https://app.hubspot.com/*"],
+      "js": ["scripts/detect/hubspot.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://preview.eu.ngrok.io/install*",
+        "https://hull-preview.eu.ngrok.io/install*",
+        "https://hull-preview-staging.herokuapp.com/install*",
+        "https://hull-preview.herokuapp.com/install*"
+      ],
+      "js": ["scripts/install.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "activeTab",
+    "storage",
+    "webNavigation",
+    "https://ajax.googleapis.com/",
+    "https://dd04rofzygnm0.cloudfront.net/",
+    "https://hullbeta.io/",
+    "https://hullapp.io/",
+    "contextMenus"
+  ],
+  "background": {
+    "scripts": [
+      "scripts/background.js"
+    ]
+  }
+}
